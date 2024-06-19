@@ -14,25 +14,93 @@ Placeholder text for column 1
 #| echo: false
 #| include: false
 library(tidyverse)
+library(httr2)
 ```
 
-```{r, print}
-head(starwars)
+```{r, createaccesstoken}
+#| echo: false
+#| include: false
+client_id <- Sys.getenv("SPOTIFY_CLIENT_ID")
+client_secret <- Sys.getenv("SPOTIFY_CLIENT_SECRET")
+
+client_id <- Sys.getenv("SPOTIFY_CLIENT_ID")
+client_secret <- Sys.getenv("SPOTIFY_CLIENT_SECRET")
+
+# Generate Spotify access token
+req_access_token <- request("https://accounts.spotify.com/api/token") |> 
+  req_method("POST") |> 
+  req_body_raw(paste0(
+    "grant_type=client_credentials&client_id=",
+    client_id,
+    "&client_secret=",
+    client_secret
+  ), "application/x-www-form-urlencoded") |> 
+  req_perform() |> 
+  resp_body_json()
+spotify_access_token <- req_access_token$access_token
 ```
+
+```{r, getplaylist}
+playlist <- request("https://api.spotify.com/v1/playlists/3NcJfeqTzJ9DitQMNUezuh") |> 
+  req_method("GET") |> 
+  req_headers(
+    Authorization = paste0("Bearer ", spotify_access_token),
+  ) |> 
+  req_perform() |> 
+  resp_body_json()
+
+playlist_df <- data.frame(
+  song_name = unlist(lapply(playlist$tracks$items, FUN = function(x) { x$track$name })),
+  song_id = unlist(lapply(playlist$tracks$items, FUN = function(x) { x$track$id })),
+  artist_name = unlist(lapply(playlist$tracks$items, FUN = function(x) {x$track$album$artists[[1]]$name})),
+  album_art = unlist(lapply(playlist$tracks$items, FUN = function(x) {x$track$album$images[[1]]$url})),
+  track_duration = unlist(lapply(playlist$tracks$items, FUN = function(x) {x$track$duration_ms})), 
+  popularity = unlist(lapply(playlist$tracks$items, FUN = function(x) {x$track$popularity}))
+)
+```
+
 
 ## Column {width="65%"}
 
 ### Row {height="10%"}
 
 ```{r}
-paste0("My password is: ", Sys.getenv("MY_PASSWORD"))
-paste0("My password is: ", Sys.getenv("MY_PASSWORD"))
+#| echo: false
+#| include: false
+ojs_define(playlist_ojs = playlist_df)
+```
+
+
+```{ojs}
+//| expandable: false
+vanessa_playlist = transpose(playlist_ojs)
+
+// Create a dropdown menu of the songs
+
+viewof songDropdown = Inputs.select(
+  vanessa_playlist.map(d => d.song_name),
+  {
+    label: "Choose a song",
+    unique: true
+  }
+)
 ```
 
 
 ### Row {height="70%"}
 
-Placeholder text for column 2, row 2
+```{ojs}
+//| expandable: false
+html`<iframe class="custom-iframe" style="border-radius:12px; display: flex; justify-content: center; align-items: center;" 
+  src=${`https://open.spotify.com/embed/track/${vanessa_playlist.find(song => song.song_name === songDropdown).song_id}?utm_source=generator&theme=0`} 
+  width="100%" 
+  height="352" 
+  frameBorder="0" 
+  allowfullscreen="" 
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+  loading="lazy">
+</iframe>`
+```
 
 ### Row {height="20%"}
 
