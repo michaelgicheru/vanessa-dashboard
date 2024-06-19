@@ -63,7 +63,7 @@ playlist_df <- data.frame(
 ```{r, createtable}
 playlist_df |> 
   select(album_art, song_name, artist_name, track_duration, popularity) |> 
-  gt()
+  gt::gt()
 ```
 
 ## Column {width="65%"}
