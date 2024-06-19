@@ -15,6 +15,7 @@ Placeholder text for column 1
 #| include: false
 library(tidyverse)
 library(httr2)
+library(gt)
 ```
 
 ```{r, createaccesstoken}
@@ -59,6 +60,11 @@ playlist_df <- data.frame(
 )
 ```
 
+```{r, createtable}
+playlist_df |> 
+  select(album_art, song_name, artist_name, track_duration, popularity) |> 
+  gt()
+```
 
 ## Column {width="65%"}
 
