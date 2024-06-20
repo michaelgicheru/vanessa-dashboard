@@ -5,6 +5,9 @@ website:
   title: "To Vanessa, Happy Birthday Baby Girl"
   favicon: images/logo.png
   page-navigation: true
+  site-url: https://michaelgicheru.github.io/vanessa-dashboard
+  repo-url: https://github.com/michaelgicheru/vanessa-dashboard
+  repo-actions: [edit, source, issue]
   sidebar:
     title: "To Vanessa:"
     style: "docked"
