@@ -2,8 +2,5 @@
 title: "About"
 ---
 
-About this site
-
-```{r}
-1 + 1
-```
+Well, the idea came about when I saw a youtube video from one of the channels I follow. And well I thought, I could make that. I wanted to have something you could always look at, wherever you are, just as a reminder that I am always here for you.
+Bonus points that I got to try something new! I love you Vanessa. Happy (belated) birthday baby girl. God bless you!!

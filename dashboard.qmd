@@ -1,5 +1,5 @@
 ---
-title: "Vanessa"
+title: "Vanessa, My Man Made Sunshine"
 format: 
   dashboard: 
     logo: "images/logo.png"
@@ -149,7 +149,7 @@ playlist_df |>
     locations = cells_column_labels(columns = popularity)
   ) |> 
   tab_footnote(
-    footnote = "Added this part",
+    footnote = "To be honest, none of these songs are consistent in terms of tempo",
     locations = cells_column_labels(columns = tempos)
   ) |> 
   tab_source_note(
@@ -250,8 +250,10 @@ html`<iframe class="custom-iframe" style="border-radius:12px; display: flex; jus
 :::{.card expandable="false"}
 <div style="background-color: #7D3C98; color: white; border-radius: 10px; padding: 10px; text-align: center; display: flex; align-items: center; justify-content: center; height: 100%;">
 
-  <span style="font-size: 1vw; width: 100%;">
-    **Happy Birthday Vanessa!!**<br>These are the songs that remind me of you<br>You make me feel like I am floating.
+  <span style="font-size:1.2vw; width: 100%;">
+    **Happy Birthday Vanessa!!**</span> 
+  <span style="font-size: 1vw; width: 100%;">  
+    These are the songs that remind me of you<br>You make me feel like I am floating.
   </span>
 
 </div>
